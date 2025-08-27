@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowLeft, Code, Cloud, Smartphone, BarChart, Bot, Gamepad2 } from "lucide-react";
+import { ArrowLeft, Code, Cloud, Smartphone, BarChart, Bot, Gamepad2, Container, Shield, Package } from "lucide-react";
 import GlassButton from "@/components/GlassButton";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -10,57 +10,39 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with modern UI, payment integration, and admin dashboard.",
-      icon: <Code className="w-6 h-6" />,
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/ecommerce",
+      title: "Docify",
+      description: "Auto-Dockerization CLI that automates containerization by detecting ports/databases, generating Dockerfiles, building images, and running containers. Reduced onboarding and deployment time by 80%.",
+      icon: <Container className="w-6 h-6" />,
+      technologies: ["Go", "Docker", "MongoDB", "CLI"],
+      visitUrl: null,
+      codeUrl: "https://github.com/yashgautam/docify",
     },
     {
       id: 2,
-      title: "DevOps Pipeline",
-      description: "Automated CI/CD pipeline with Docker, Kubernetes, and monitoring solutions.",
-      icon: <Cloud className="w-6 h-6" />,
-      technologies: ["Docker", "Kubernetes", "Jenkins", "AWS"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/devops",
+      title: "simple-google-oauthentication",
+      description: "Express middleware for plug-and-play OAuth 2.0 with JWT-based cookie sessions for secure authentication. Adopted by 10+ developers in production systems, simplified Google login integration by 60%.",
+      icon: <Shield className="w-6 h-6" />,
+      technologies: ["Node.js", "Express", "OAuth 2.0", "JWT"],
+      visitUrl: "https://www.npmjs.com/package/simple-google-oauthentication",
+      codeUrl: "https://github.com/yashgautam/simple-google-oauthentication",
     },
     {
       id: 3,
-      title: "Mobile App",
-      description: "Cross-platform mobile application with real-time features and offline capabilities.",
-      icon: <Smartphone className="w-6 h-6" />,
-      technologies: ["React Native", "Firebase", "Redux", "Socket.io"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/mobile",
+      title: "Cloud Infrastructure Automation",
+      description: "Infrastructure as Code solutions using Terraform for automated cloud deployment and management across AWS, Azure, and GCP platforms.",
+      icon: <Cloud className="w-6 h-6" />,
+      technologies: ["Terraform", "AWS", "Azure", "GCP", "Kubernetes"],
+      visitUrl: null,
+      codeUrl: "https://github.com/yashgautam",
     },
     {
       id: 4,
-      title: "Analytics Dashboard",
-      description: "Real-time analytics dashboard with interactive charts and data visualization.",
-      icon: <BarChart className="w-6 h-6" />,
-      technologies: ["Vue.js", "D3.js", "Python", "PostgreSQL"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/analytics",
-    },
-    {
-      id: 5,
-      title: "AI Chatbot",
-      description: "Intelligent chatbot with natural language processing and machine learning capabilities.",
-      icon: <Bot className="w-6 h-6" />,
-      technologies: ["Python", "TensorFlow", "FastAPI", "OpenAI"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/chatbot",
-    },
-    {
-      id: 6,
-      title: "Gaming Platform",
-      description: "Multiplayer gaming platform with real-time gameplay and social features.",
-      icon: <Gamepad2 className="w-6 h-6" />,
-      technologies: ["Unity", "WebGL", "WebRTC", "Redis"],
-      visitUrl: "https://example.com",
-      codeUrl: "https://github.com/example/gaming",
+      title: "CI/CD Pipeline Solutions",
+      description: "Automated continuous integration and deployment pipelines with GitLab CI/CD, enhancing developer efficiency and deployment reliability.",
+      icon: <Code className="w-6 h-6" />,
+      technologies: ["GitLab CI/CD", "Docker", "Kubernetes", "Automation"],
+      visitUrl: null,
+      codeUrl: "https://github.com/yashgautam",
     },
   ];
 
@@ -116,6 +98,86 @@ export default function Projects() {
               project={project}
               index={index}
             />
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Skills Section */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold gradient-text mb-4">Technical Skills</h2>
+          <p className="text-muted-foreground text-lg">Technologies and tools I work with</p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {[
+            {
+              category: "Languages",
+              skills: ["C++", "Java", "Python", "JavaScript", "TypeScript", "Go", "Dart"]
+            },
+            {
+              category: "Frameworks",
+              skills: ["Node.js", "Express", "Next.js", "FlutterFlow", "TailwindCSS"]
+            },
+            {
+              category: "DevOps & Cloud",
+              skills: ["Docker", "Kubernetes", "Terraform", "GitLab CI/CD", "AWS", "Azure", "GCP"]
+            },
+            {
+              category: "Databases",
+              skills: ["MySQL", "MongoDB", "Firebase Firestore"]
+            },
+            {
+              category: "Security",
+              skills: ["OAuth 2.0", "JWT", "SPIFFE/SPIRE", "AuthN/AuthZ", "Cloud Security"]
+            },
+            {
+              category: "AI/ML",
+              skills: ["Machine Learning", "Deep Learning", "Data Science"]
+            }
+          ].map((skillGroup, index) => (
+            <motion.div
+              key={skillGroup.category}
+              variants={{
+                hidden: { y: 40, opacity: 0 },
+                visible: {
+                  y: 0,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.8,
+                    ease: "easeOut",
+                    delay: index * 0.1,
+                  },
+                },
+              }}
+              className="glassmorphism rounded-xl p-6"
+              data-testid={`skills-category-${index}`}
+            >
+              <h3 className="text-xl font-semibold text-primary mb-4" data-testid={`text-category-${index}`}>
+                {skillGroup.category}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {skillGroup.skills.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    className="tech-badge px-3 py-1 rounded-full text-xs font-medium"
+                    data-testid={`badge-skill-${index}-${skillIndex}`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
