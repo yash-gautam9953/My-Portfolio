@@ -23,8 +23,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="relative min-h-screen bg-background text-foreground">
-          <ParticleBackground />
           <div className="fixed inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-transparent animate-gradient-shift pointer-events-none" />
+          <ParticleBackground />
           <Toaster />
           <Router />
         </div>

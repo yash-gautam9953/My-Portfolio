@@ -18,13 +18,13 @@ export default function ParticleBackground() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 3 + 2;
         this.originalSize = this.size;
         this.color = Math.random() > 0.5 ? "#8B5CF6" : "#06B6D4";
-        this.alpha = Math.random() * 0.4 + 0.3;
-        this.pulseSpeed = Math.random() * 0.01 + 0.005;
+        this.alpha = Math.random() * 0.6 + 0.4;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
         this.pulseOffset = Math.random() * Math.PI * 2;
       }
 
@@ -93,7 +93,7 @@ export default function ParticleBackground() {
     // Initialize particles
     function initParticles() {
       particles = [];
-      const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000));
+      const particleCount = 80;
 
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
@@ -190,7 +190,10 @@ export default function ParticleBackground() {
       className="fixed inset-0 w-full h-full pointer-events-none"
       style={{ 
         background: "transparent",
-        zIndex: -1
+        zIndex: 0,
+        position: "fixed",
+        top: 0,
+        left: 0
       }}
     />
   );
