@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Gautam - Full-Stack & DevOps Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    border: "var(--border)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    sans: ["Inter", "system-ui", "sans-serif"],
+                },
+                animation: {
+                    'fade-in': 'fadeIn 0.8s ease-out',
+                    'slide-up': 'slideUp 0.8s ease-out',
+                    'scale-in': 'scaleIn 0.6s ease-out',
+                    'float': 'float 6s ease-in-out infinite',
+                    'gradient-shift': 'gradientShift 8s ease-in-out infinite',
+                }
+            },
+        }
+    };
+    </script>
+    <style>
+        :root {
+            --background: hsl(240 10% 4%);
+            --foreground: hsl(0 0% 98%);
+            --card: hsl(240 10% 8%);
+            --card-foreground: hsl(0 0% 98%);
+            --primary: hsl(271 81% 56%);
+            --primary-foreground: hsl(0 0% 98%);
+            --secondary: hsl(198 93% 60%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(240 5% 15%);
+            --muted-foreground: hsl(240 5% 64%);
+            --accent: hsl(271 81% 56%);
+            --accent-foreground: hsl(0 0% 98%);
+            --border: hsl(240 6% 20%);
+            --ring: hsl(271 81% 56%);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            overflow-x: hidden;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .neon-border {
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3));
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-hover-effect {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hover-effect::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .btn-hover-effect:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .btn-hover-effect:hover {
+            color: white;
+            border-color: transparent;
+        }
+
+        .particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .background-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 100%);
+            z-index: -1;
+            animation: gradient-shift 8s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .project-card:hover .card-glow {
+            opacity: 1;
+        }
+
+        .card-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .tech-badge {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #E879F9;
+        }
+
+        .page-transition {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hidden-page {
+            display: none;
+        }
+
+        .stagger-animation {
+            animation-delay: var(--delay, 0s);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-gradient"></div>
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page-transition active">
+        <div class="min-h-screen flex items-center justify-center overflow-hidden relative">
+            <!-- @COMPONENT: Hero Section -->
+            <div class="text-center z-10 px-6 max-w-4xl mx-auto">
+                <!-- Name and Title -->
+                <div class="mb-8">
+                    <h1 class="text-6xl md:text-8xl font-bold mb-4 animate-fade-in gradient-text">
+                        Yash Gautam
+                    </h1>
+                    <p class="text-xl md:text-2xl text-muted-foreground animate-slide-up" style="animation-delay: 0.2s;">
+                        Full-Stack & DevOps Engineer
+                    </p>
+                </div>
+
+                <!-- Social Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <a href="https://github.com" target="_blank" 
+                       class="glassmorphism neon-border btn-hover-effect px-6 py-3 rounded-full flex items-center gap-2 text-sm font-medium transition-all duration-300 animate-scale-in stagger-animation"
+                       style="--delay: 0.4s;">
+                        <i class="fab fa-github text-lg"></i>
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com" target="_blank"
+                       class="glassmorphism neon-border btn-hover-effect px-6 py-3 rounded-full flex items-center gap-2 text-sm font-medium transition-all duration-300 animate-scale-in stagger-animation"
+                       style="--delay: 0.5s;">
+                        <i class="fab fa-linkedin text-lg"></i>
+                        LinkedIn
+                    </a>
+                    <a href="mailto:yash@example.com"
+                       class="glassmorphism neon-border btn-hover-effect px-6 py-3 rounded-full flex items-center gap-2 text-sm font-medium transition-all duration-300 animate-scale-in stagger-animation"
+                       style="--delay: 0.6s;">
+                        <i class="fas fa-envelope text-lg"></i>
+                        Email
+                    </a>
+                </div>
+
+                <!-- CTA Button -->
+                <button id="viewProjectsBtn" 
+                        class="glassmorphism neon-border btn-hover-effect px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 animate-scale-in stagger-animation"
+                        style="--delay: 0.7s;">
+                    <i class="fas fa-rocket mr-2"></i>
+                    View Projects
+                </button>
+            </div>
+            <!-- @END_COMPONENT: Hero Section -->
+        </div>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projectsPage" class="page-transition hidden-page">
+        <!-- @COMPONENT: Sticky Navbar -->
+        <nav class="sticky top-0 z-50 glassmorphism border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <button id="homeBtn" class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                    <i class="fas fa-arrow-left"></i>
+                    Home
+                </button>
+                <h2 class="text-xl font-semibold gradient-text">Portfolio</h2>
+            </div>
+        </nav>
+        <!-- @END_COMPONENT: Sticky Navbar -->
+
+        <!-- @COMPONENT: Projects Grid -->
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.1s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-code text-2xl text-primary"></i>
+                            <h3 class="text-xl font-semibold">E-Commerce Platform</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Full-stack e-commerce solution with modern UI, payment integration, and admin dashboard.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">React</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Node.js</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">MongoDB</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Stripe</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.2s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-cloud text-2xl text-secondary"></i>
+                            <h3 class="text-xl font-semibold">DevOps Pipeline</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Automated CI/CD pipeline with Docker, Kubernetes, and monitoring solutions.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Docker</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Kubernetes</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Jenkins</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">AWS</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.3s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-mobile-alt text-2xl text-primary"></i>
+                            <h3 class="text-xl font-semibold">Mobile App</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Cross-platform mobile application with real-time features and offline capabilities.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">React Native</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Firebase</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Redux</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Socket.io</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.4s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-chart-bar text-2xl text-secondary"></i>
+                            <h3 class="text-xl font-semibold">Analytics Dashboard</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Real-time analytics dashboard with interactive charts and data visualization.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Vue.js</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">D3.js</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Python</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">PostgreSQL</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.5s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-robot text-2xl text-primary"></i>
+                            <h3 class="text-xl font-semibold">AI Chatbot</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Intelligent chatbot with natural language processing and machine learning capabilities.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Python</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">TensorFlow</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">FastAPI</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">OpenAI</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 6 -->
+                <div class="project-card glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 relative overflow-hidden animate-slide-up stagger-animation" style="--delay: 0.6s;">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-gamepad text-2xl text-secondary"></i>
+                            <h3 class="text-xl font-semibold">Gaming Platform</h3>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Multiplayer gaming platform with real-time gameplay and social features.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Unity</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">WebGL</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">WebRTC</span>
+                            <span class="tech-badge px-3 py-1 rounded-full text-xs font-medium">Redis</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit
+                            </button>
+                            <button class="glassmorphism neon-border btn-hover-effect px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Projects Grid -->
+    </div>
+
+    <script>
+        // Particle System for Background Animation
+        (function() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            let particles = [];
+            let mouse = { x: 0, y: 0 };
+            let animationId;
+            
+            // Resize canvas
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            // Particle class
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                    this.color = Math.random() > 0.5 ? '#8B5CF6' : '#06B6D4';
+                    this.alpha = Math.random() * 0.5 + 0.3;
+                }
+                
+                update() {
+                    // Mouse repulsion
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        const force = (100 - distance) / 100;
+                        this.vx += dx * force * 0.001;
+                        this.vy += dy * force * 0.001;
+                    }
+                    
+                    // Apply velocity
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    // Boundary collision
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    
+                    // Keep particles in bounds
+                    this.x = Math.max(0, Math.min(canvas.width, this.x));
+                    this.y = Math.max(0, Math.min(canvas.height, this.y));
+                    
+                    // Friction
+                    this.vx *= 0.99;
+                    this.vy *= 0.99;
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 10;
+                    
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+            
+            // Initialize particles
+            function initParticles() {
+                particles = [];
+                const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 10000));
+                
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            // Draw connections between nearby particles
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 120) {
+                            const alpha = (120 - distance) / 120 * 0.2;
+                            ctx.save();
+                            ctx.globalAlpha = alpha;
+                            ctx.strokeStyle = '#8B5CF6';
+                            ctx.lineWidth = 0.5;
+                            ctx.shadowColor = '#8B5CF6';
+                            ctx.shadowBlur = 2;
+                            
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    }
+                }
+            }
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                // Draw connections
+                drawConnections();
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            // Event listeners
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                initParticles();
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            
+            // Initialize
+            resizeCanvas();
+            initParticles();
+            animate();
+        })();
+        
+        // Page Navigation
+        (function() {
+            const homePage = document.getElementById('homePage');
+            const projectsPage = document.getElementById('projectsPage');
+            const viewProjectsBtn = document.getElementById('viewProjectsBtn');
+            const homeBtn = document.getElementById('homeBtn');
+            
+            function showPage(targetPage, hidePage) {
+                hidePage.classList.remove('active');
+                hidePage.classList.add('hidden-page');
+                
+                setTimeout(() => {
+                    targetPage.classList.remove('hidden-page');
+                    requestAnimationFrame(() => {
+                        targetPage.classList.add('active');
+                    });
+                    
+                    // Update body overflow
+                    if (targetPage === homePage) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = 'auto';
+                    }
+                }, 250);
+            }
+            
+            viewProjectsBtn.addEventListener('click', () => {
+                showPage(projectsPage, homePage);
+            });
+            
+            homeBtn.addEventListener('click', () => {
+                showPage(homePage, projectsPage);
+            });
+            
+            // Set initial overflow
+            document.body.style.overflow = 'hidden';
+        })();
+        
+        // Performance optimization
+        (function() {
+            // Reduce animations on low-end devices
+            if (navigator.hardwareConcurrency <= 2) {
+                document.querySelectorAll('.animate-float').forEach(el => {
+                    el.style.animation = 'none';
+                });
+            }
+            
+            // Pause animations when tab is not visible
+            document.addEventListener('visibilitychange', () => {
+                const canvas = document.getElementById('particleCanvas');
+                if (document.hidden) {
+                    canvas.style.display = 'none';
+                } else {
+                    canvas.style.display = 'block';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ export const skillsData = [
   },
   {
     category: "DevOps & Cloud",
-    skills: ["Docker", "Kubernetes", "Terraform", "GitLab CI/CD", "AWS", "Azure", "GCP"]
+    skills: ["Docker", "Kubernetes", "GitLab CI/CD", "AWS", "Azure", "GCP"]
   },
   {
     category: "Databases",

@@ -58,7 +58,7 @@ export default function Home() {
         >
           <motion.div variants={itemVariants}>
             <GlassButton
-              href="https://github.com/yashgautam"
+              href="https://github.com/yash-gautam9953"
               external
               icon={<Github className="w-5 h-5" />}
               data-testid="link-github"
@@ -68,7 +68,7 @@ export default function Home() {
           </motion.div>
           <motion.div variants={itemVariants}>
             <GlassButton
-              href="https://linkedin.com/in/yashgautam"
+              href="https://www.linkedin.com/in/yash-gautam-75b523364?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               external
               icon={<Linkedin className="w-5 h-5" />}
               data-testid="link-linkedin"
@@ -78,10 +78,10 @@ export default function Home() {
           </motion.div>
           <motion.div variants={itemVariants}>
             <GlassButton
-              href="mailto:yashgautam9953@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=yashgautam9953@gmail.com"
               external
               icon={<Mail className="w-5 h-5" />}
-              data-testid="link-email"
+              data-testid="link-gmail"
             >
               Email
             </GlassButton>
