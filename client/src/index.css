@@ -134,7 +134,8 @@
 .btn-hover-effect {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .btn-hover-effect::before {
@@ -146,9 +147,10 @@
   height: 0;
   background: linear-gradient(135deg, #8B5CF6, #06B6D4);
   border-radius: 50%;
-  transition: all 0.5s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translate(-50%, -50%);
   z-index: -1;
+  will-change: width, height;
 }
 
 .btn-hover-effect:hover::before {
@@ -159,6 +161,7 @@
 .btn-hover-effect:hover {
   color: white;
   border-color: transparent;
+  transform: translateY(-1px);
 }
 
 .card-glow {
@@ -169,13 +172,19 @@
   bottom: 0;
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: inherit;
   z-index: -1;
+  will-change: opacity;
 }
 
 .project-card:hover .card-glow {
   opacity: 1;
+}
+
+.project-card {
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tech-badge {

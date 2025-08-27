@@ -18,13 +18,13 @@ export default function ParticleBackground() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.8;
-        this.vy = (Math.random() - 0.5) * 0.8;
-        this.size = Math.random() * 3 + 1;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.size = Math.random() * 2 + 1;
         this.originalSize = this.size;
         this.color = Math.random() > 0.5 ? "#8B5CF6" : "#06B6D4";
-        this.alpha = Math.random() * 0.6 + 0.4;
-        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.alpha = Math.random() * 0.4 + 0.3;
+        this.pulseSpeed = Math.random() * 0.01 + 0.005;
         this.pulseOffset = Math.random() * Math.PI * 2;
       }
 
@@ -73,25 +73,13 @@ export default function ParticleBackground() {
       draw() {
         ctx.save();
         ctx.globalAlpha = this.alpha;
-        
-        // Outer glow
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 20;
         ctx.fillStyle = this.color;
-        
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 10;
+
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Inner bright core
-        ctx.shadowBlur = 5;
-        ctx.globalAlpha = this.alpha * 0.8;
-        ctx.fillStyle = "#ffffff";
-        
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 0.3, 0, Math.PI * 2);
-        ctx.fill();
-        
         ctx.restore();
       }
     }
@@ -105,7 +93,7 @@ export default function ParticleBackground() {
     // Initialize particles
     function initParticles() {
       particles = [];
-      const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 8000));
+      const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000));
 
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
@@ -121,23 +109,12 @@ export default function ParticleBackground() {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 140) {
-            const alpha = ((140 - distance) / 140) * 0.4;
-            
-            // Create gradient for connection line
-            const gradient = ctx.createLinearGradient(
-              particles[i].x, particles[i].y, 
-              particles[j].x, particles[j].y
-            );
-            gradient.addColorStop(0, particles[i].color);
-            gradient.addColorStop(1, particles[j].color);
-            
+          if (distance < 100) {
+            const alpha = ((100 - distance) / 100) * 0.2;
             ctx.save();
             ctx.globalAlpha = alpha;
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = Math.max(0.5, (140 - distance) / 140 * 2);
-            ctx.shadowColor = "#8B5CF6";
-            ctx.shadowBlur = 5;
+            ctx.strokeStyle = "#8B5CF6";
+            ctx.lineWidth = 0.5;
 
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -210,8 +187,11 @@ export default function ParticleBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-[-2]"
-      style={{ background: "transparent" }}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ 
+        background: "transparent",
+        zIndex: -1
+      }}
     />
   );
 }
