@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Container, Shield, Cloud, Code, Smartphone, BarChart, Bot, Gamepad2 } from "lucide-react";
 import GlassButton from "./GlassButton";
 
 export default function ProjectCard({ project, index }) {
@@ -28,7 +28,14 @@ export default function ProjectCard({ project, index }) {
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           <div className="text-primary flex-shrink-0">
-            {project.icon}
+            {project.icon === "Container" && <Container className="w-6 h-6" />}
+            {project.icon === "Shield" && <Shield className="w-6 h-6" />}
+            {project.icon === "Cloud" && <Cloud className="w-6 h-6" />}
+            {project.icon === "Code" && <Code className="w-6 h-6" />}
+            {project.icon === "Smartphone" && <Smartphone className="w-6 h-6" />}
+            {project.icon === "BarChart" && <BarChart className="w-6 h-6" />}
+            {project.icon === "Bot" && <Bot className="w-6 h-6" />}
+            {project.icon === "Gamepad2" && <Gamepad2 className="w-6 h-6" />}
           </div>
           <h3 
             className="text-xl font-semibold text-foreground"
