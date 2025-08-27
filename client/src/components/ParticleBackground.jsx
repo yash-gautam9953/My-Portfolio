@@ -18,52 +18,80 @@ export default function ParticleBackground() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.size = Math.random() * 3 + 1;
+        this.originalSize = this.size;
         this.color = Math.random() > 0.5 ? "#8B5CF6" : "#06B6D4";
-        this.alpha = Math.random() * 0.5 + 0.3;
+        this.alpha = Math.random() * 0.6 + 0.4;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.pulseOffset = Math.random() * Math.PI * 2;
       }
 
       update() {
-        // Mouse repulsion
+        // Mouse interaction - attractive force when far, repulsive when near
         const dx = this.x - mouseRef.current.x;
         const dy = this.y - mouseRef.current.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 100) {
-          const force = (100 - distance) / 100;
-          this.vx += dx * force * 0.001;
-          this.vy += dy * force * 0.001;
+        if (distance < 150) {
+          const force = (150 - distance) / 150;
+          // Repulsion effect
+          this.vx += dx * force * 0.002;
+          this.vy += dy * force * 0.002;
+          
+          // Increase size when near mouse
+          this.size = this.originalSize * (1 + force * 0.5);
+          this.alpha = Math.min(1, this.alpha + force * 0.3);
+        } else {
+          // Return to original size
+          this.size = this.originalSize;
         }
+
+        // Gentle pulsing effect
+        this.size += Math.sin(Date.now() * this.pulseSpeed + this.pulseOffset) * 0.3;
 
         // Apply velocity
         this.x += this.vx;
         this.y += this.vy;
 
-        // Boundary collision
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        // Boundary collision with soft bounce
+        if (this.x < 0 || this.x > canvas.width) {
+          this.vx *= -0.8;
+          this.x = Math.max(0, Math.min(canvas.width, this.x));
+        }
+        if (this.y < 0 || this.y > canvas.height) {
+          this.vy *= -0.8;
+          this.y = Math.max(0, Math.min(canvas.height, this.y));
+        }
 
-        // Keep particles in bounds
-        this.x = Math.max(0, Math.min(canvas.width, this.x));
-        this.y = Math.max(0, Math.min(canvas.height, this.y));
-
-        // Friction
-        this.vx *= 0.99;
-        this.vy *= 0.99;
+        // Gentle friction
+        this.vx *= 0.995;
+        this.vy *= 0.995;
       }
 
       draw() {
         ctx.save();
         ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
+        
+        // Outer glow
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
-
+        ctx.shadowBlur = 20;
+        ctx.fillStyle = this.color;
+        
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Inner bright core
+        ctx.shadowBlur = 5;
+        ctx.globalAlpha = this.alpha * 0.8;
+        ctx.fillStyle = "#ffffff";
+        
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
         ctx.restore();
       }
     }
@@ -77,7 +105,7 @@ export default function ParticleBackground() {
     // Initialize particles
     function initParticles() {
       particles = [];
-      const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 10000));
+      const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 8000));
 
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
@@ -93,14 +121,23 @@ export default function ParticleBackground() {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
-            const alpha = ((120 - distance) / 120) * 0.2;
+          if (distance < 140) {
+            const alpha = ((140 - distance) / 140) * 0.4;
+            
+            // Create gradient for connection line
+            const gradient = ctx.createLinearGradient(
+              particles[i].x, particles[i].y, 
+              particles[j].x, particles[j].y
+            );
+            gradient.addColorStop(0, particles[i].color);
+            gradient.addColorStop(1, particles[j].color);
+            
             ctx.save();
             ctx.globalAlpha = alpha;
-            ctx.strokeStyle = "#8B5CF6";
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = Math.max(0.5, (140 - distance) / 140 * 2);
             ctx.shadowColor = "#8B5CF6";
-            ctx.shadowBlur = 2;
+            ctx.shadowBlur = 5;
 
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
