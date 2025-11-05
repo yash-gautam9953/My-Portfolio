@@ -17,7 +17,6 @@ export const projects = [
     visitUrl: "https://www.npmjs.com/package/simple-google-oauthentication",
     codeUrl: "https://github.com/yash-gautam9953/simple-google-oauthentication",
   },
-<<<<<<< HEAD
   {
     id: 3,
     title: "PixelSqueeze",
@@ -27,7 +26,6 @@ export const projects = [
     visitUrl: "https://pixelsqueeze-0bvm.onrender.com/",
     codeUrl: "https://github.com/yash-gautam9953/PixelSqueeze",
   },
->>>>>>> 33927d29eab763306e9f2bce53fdf91ccd978681
   // {
   //   id: 4,
   //   title: "CI/CD Pipeline Solutions",
