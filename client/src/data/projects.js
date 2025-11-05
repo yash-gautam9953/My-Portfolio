@@ -17,15 +17,17 @@ export const projects = [
     visitUrl: "https://www.npmjs.com/package/simple-google-oauthentication",
     codeUrl: "https://github.com/yash-gautam9953/simple-google-oauthentication",
   },
+<<<<<<< HEAD
   {
     id: 3,
     title: "PixelSqueeze",
     description: "A user-friendly web app for precise image compression, allowing users to define target file sizes (e.g., '50kb jpg') and get optimized images in seconds. Features multi-format support (JPG, PNG, ZIP).",
-    icon: "Smartphone", // This generally implies a visual icon related to images.
+    icon: "Smartphone",
     technologies: ["Python", "Flask", "Pillow", "PyMuPDF", "HTML", "CSS", "JavaScript"],
-    visitUrl: "https://pixelsqueeze-0bvm.onrender.com/", // Assuming you don't have a live deployment URL yet.
-    codeUrl: "https://github.com/yash-gautam9953/PixelSqueeze", // Assuming this is your GitHub profile, you might want to link directly to the PixelSqueeze repo if it's public.
-},
+    visitUrl: "https://pixelsqueeze-0bvm.onrender.com/",
+    codeUrl: "https://github.com/yash-gautam9953/PixelSqueeze",
+  },
+>>>>>>> 33927d29eab763306e9f2bce53fdf91ccd978681
   // {
   //   id: 4,
   //   title: "CI/CD Pipeline Solutions",
