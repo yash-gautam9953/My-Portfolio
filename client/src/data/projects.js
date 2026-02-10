@@ -14,8 +14,8 @@ export const projects = [
     "description": "A simple and fast CLI tool that automates Git operations like init, add, commit, branch switch, remote setup, and push — all using one command.",
     "icon": "Code",
     "technologies": ["Go", "Git"],
-    "visitUrl": "https://yash-gautam9953.github.io/GIT-AUTOMATION-TOOL/",
-    "codeUrl": "https://github.com/yash-gautam9953/GIT-AUTOMATION-TOOL"
+    "visitUrl": "https://yash-gautam9953.github.io/GitEasy/",
+    "codeUrl": "https://github.com/yash-gautam9953/GitEasy"
     
   },
   {
