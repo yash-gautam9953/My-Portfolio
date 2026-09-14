@@ -5,11 +5,11 @@ export const skillsData = [
   },
   {
     category: "Languages",
-    skills: ["Java", "Python", "Golang(Go)", "Bash"]
+    skills: ["Python", "Golang(Go)"]
   },
   {
     category: "Security",
-    skills: ["OAuth 2.0", "JWT", "AuthN/AuthZ", "IAM"]
+    skills: ["OAuth 2.0", "JWT", "AuthN/AuthZ", "IAM/RBAC"]
   },
   {
     category: "Frameworks",

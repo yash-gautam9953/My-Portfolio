@@ -1,6 +1,6 @@
 export const projects = [
   {
-    id: 1,
+    id: 2,
     title: "Docify",
     description: "Auto-Dockerization CLI that automates containerization by detecting ports/databases, generating Dockerfiles, building images, and running containers. Reduced onboarding and deployment time by 80%.",
     icon: "Container",
@@ -9,7 +9,7 @@ export const projects = [
     codeUrl: "https://github.com/yash-gautam9953/docify",
   },
   {
-    "id": 4,
+    "id": 1,
     "title": "GitEasy - CLI Tool",
     "description": "A simple and fast CLI tool that automates Git operations like init, add, commit, branch switch, remote setup, and push — all using one command.",
     "icon": "Code",

@@ -47,7 +47,7 @@ export default function Home() {
             Yash Gautam
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground">
-            Full-Stack & DevSecOps Engineer
+            DevOps Engineer | AI Enthusiast 
           </p>
         </motion.div>
 
